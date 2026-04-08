@@ -1,0 +1,7 @@
+//Definimos las variables de entorno para la conexion a la BD heroku
+
+DB_HOST = us-cdbr-east-06.cleardb.net
+DB_USER = b9151f79dc5159
+DB_PASS = 50f41417
+DB_DATABASE = heroku_4ad8a33d79d14e5
+DB_PORT = 3306
