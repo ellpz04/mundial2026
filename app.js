@@ -649,14 +649,14 @@ app.get('/participantes2', (req,res)=>{
  
 app.use('/', require('./router'));
 
-const port = process.env.PORT
+//const port = process.env.PORT
 
 //	app.listen(port, () => {
 //    console.log(`Server Running on port: ${port}`);
 //    });
 
-app.listen(port || 3000)
-console.log(`Servidor ejecutando desde el puerto`, port || 3000);
+//app.listen(port || 3000)
+//console.log(`Servidor ejecutando desde el puerto`, port || 3000);
 
 
 //Local
@@ -666,3 +666,10 @@ console.log(`Servidor ejecutando desde el puerto`, port || 3000);
 
 //Nube
 //	console.log('SERVER RUNNING IN https://mundial2026.herokuapp.com/:3000');
+
+//rawly
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor en puerto ${PORT}`);
+});
