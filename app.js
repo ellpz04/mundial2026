@@ -668,7 +668,8 @@ app.use('/', require('./router'));
 //	console.log('SERVER RUNNING IN https://mundial2026.herokuapp.com/:3000');
 
 //rawly
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor en puerto ${PORT}`);
