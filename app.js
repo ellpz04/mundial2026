@@ -25,15 +25,32 @@ app.set('view engine','ejs');
 
 //7- variables de session
 const session = require('express-session');
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
-
+const MySQLStore = require('express-mysql-session')(session);
 
 // 8 - Invocamos a la conexion de la DB
 const connection = require('./database/db');
+
+const sessionStore = new MySQLStore({
+	clearExpired: true,
+	checkExpirationInterval: 900000,
+	expiration: 86400000,
+	createDatabaseTable: true,
+	schema: {
+		tableName: 'sessions',
+		columnNames: {
+			session_id: 'session_id',
+			expires: 'expires',
+			data: 'data'
+		}
+	}
+}, connection);
+
+app.use(session({
+	secret: 'secret',
+	resave: false,
+	saveUninitialized: false,
+	store: sessionStore
+}));
 
 //9 SMS 1064dc5b331c748c199ff2c55b59f9a5
 //const accountSid = 'ACc43d61220600a796f192dac6d4376997' // El id de tu cuenta; 
