@@ -25,16 +25,43 @@ app.set('view engine','ejs');
 
 //7- variables de session
 const session = require('express-session');
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
-
+const MySQLStore = require('express-mysql-session')(session);
 
 // 8 - Invocamos a la conexion de la DB
 const connection = require('./database/db');
 
+const sessionStore = new MySQLStore({
+	clearExpired: true,
+	checkExpirationInterval: 900000,
+	expiration: 86400000,
+	createDatabaseTable: true,
+	schema: {
+		tableName: 'sessions',
+		columnNames: {
+			session_id: 'session_id',
+			expires: 'expires',
+			data: 'data'
+		}
+	}
+}, connection);
+
+app.use(session({
+	secret: 'secret',
+	resave: false,
+	saveUninitialized: false,
+	store: sessionStore
+}));
+
+//9 SMS 1064dc5b331c748c199ff2c55b59f9a5
+//const accountSid = 'ACc43d61220600a796f192dac6d4376997' // El id de tu cuenta; 
+//const authToken = '1064dc5b331c748c199ff2c55b59f9a5' // El TOKEN de tu cuenta; 
+//const client = require('twilio')(accountSid, authToken); 
+
+//const accountSid = 'ACc43d61220600a796f192dac6d4376997'; 
+//const authToken = '1064dc5b331c748c199ff2c55b59f9a5'; 
+//const client = require('twilio')(accountSid, authToken); 
+ 
+ 
 //10 - establecemos las rutas
 	app.get('/acceso',(req, res)=>{
 		res.render('acceso');
@@ -43,6 +70,9 @@ const connection = require('./database/db');
 	app.get('/register',(req, res)=>{
 		res.render('register');
 	})
+
+
+
 
 //puntos
 app.get('/puntos', (req, res)=> {
@@ -148,6 +178,27 @@ app.post('/registra_save1', async (req, res)=> {
 					    req.session.loggedin = false;
 
 						console.log('Espere aviso de activación');
+						   
+	
+	//SMS 	MGd83ac9dc18fe0332e4081368d3800b61
+//	client.messages 
+//	.create({
+//	   body: Alias,  
+//	   messagingServiceSid: 'MGd83ac9dc18fe0332e4081368d3800b61',      
+//	   to: '524422029224' 
+//	}) 
+//	.then(message => console.log(`${Alias} - ${message.sid}`)) 
+//	.done();
+	
+
+//client.messages 
+//      .create({ 
+//         body: Alias,   
+//		 messagingServiceSid: 'MGd83ac9dc18fe0332e4081368d3800b61',     
+//         to: '+524423227450' 
+//       }) 
+//	   .then(message => console.log(`${Alias} - ${message.sid}`)) 
+//      .done();
 
 	console.log('Usuario registrado');
 	res.render('acceso', {
@@ -159,6 +210,7 @@ app.post('/registra_save1', async (req, res)=> {
 		timer: false,
 		ruta: 'acceso'
 	}); 
+
 
 			}
 	});
@@ -217,7 +269,9 @@ app.post('/auth', async (req, res)=> {
                         timer: false,
                         ruta: 'acceso'    
                     });
-							
+				
+				//Mensaje simple y poco vistoso
+                //res.send('Incorrect Username and/or Password!');				
 			} else {         
 				//creamos una var de session y le asignamos true si INICIO SESSION     
 //				console.log('Usuario registrado');
@@ -225,11 +279,8 @@ app.post('/auth', async (req, res)=> {
 				results.forEach(element => {
 //					console.log(pass);
 //					console.log(element.Pass);
-
-const fin = Date.now();
-
-					console.log(element.Alias, 'Tiempo:', fin);
-	
+					console.log(element.Alias);
+					
 	 
 					if (pass!=element.Pass) {
 //						console.log('password diferente');
@@ -269,7 +320,6 @@ const fin = Date.now();
 
 //                                console.log('El Nivel es: ' + req.session.Nivel);
 //								console.log('El Folder es: ' + req.session.Folder);
-
 
 								res.render('acceso', {
 									alert: true,
@@ -312,7 +362,6 @@ const fin = Date.now();
 			}			
 			res.end();
 		});
-
 
 	} else {	
 		res.send('Please enter user and Password!');
@@ -516,7 +565,7 @@ app.get('/campeon', (req, res)=> {
 
 	//	console.log('Debug Q ',req.session.loggedin);
 	//	console.log('Debug Q ',req.session.Alias);
-	//	console.log('Debug Q ',req.session.Id_participante);
+		console.log('Debug Q ',req.session.Id_participante);
 	
 		if (req.session.loggedin) {
 			res.render('resultados',{
@@ -622,8 +671,12 @@ app.use('/', require('./router'));
 //    console.log('SERVER RUNNING IN http://localhost:4000');
 //}); 
 
+//Nube
+//	console.log('SERVER RUNNING IN https://mundial2026.herokuapp.com/:3000');
+
 //rawly
 const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor en puerto ${PORT}`);

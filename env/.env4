@@ -1,7 +1,0 @@
-//Definimos las variables de entorno para la conexion a la BD heroku
-
-DB_HOST = mysql.us.stackcp.com
-DB_USER = usr01-03da
-DB_PASS = Mundial 2026
-DB_DATABASE = Qatar22_St-313930a60f
-DB_PORT = 57399

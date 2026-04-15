@@ -84,7 +84,7 @@ router.get('//Ipais/' + data +', (req, res)=>{
 router.get('/quinielas_data', (req, res)=>{     
 
     const Id_p = req.session.Id_participante;
-    console.log('Folder ',globalfolder);
+    console.log('Folder 3',globalfolder);
  
 //	console.log('Debug quiniela L ',req.session.loggedin);
 //    console.log('Debug quiniela Id ',req.session.Id_participante);
@@ -116,7 +116,7 @@ router.get('/puntos_data', (req, res)=>{
 //    const Id_Alias = req.session.Alias;
 
 //	console.log('Debug quiniela L ',req.session.loggedin);
-    console.log('Debug quiniela Id ',req.session.Id_participante);
+//    console.log('Debug quiniela Id ',req.session.Id_participante);
 //    console.log('Debug quiniela A ',req.session.Alias);
 
     conexion.query('SELECT PU.Id,PA.nombre as Id_participante,PU.Id_partido,PR.ML,PR.MV,Q.ML Mi_ML,Q.MV Mi_MV,PU.Local,  \
@@ -291,7 +291,7 @@ router.get('/participantes_dat2', (req, res)=>{
 
 router.get('/participantes_datF1', (req, res)=>{ 
        
-    console.log('Folder ',globalfolder);
+    console.log('Folder 4',globalfolder);
  
     pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante and L.Id_folder=?',[globalfolder] ,(error, results)=>{
          if(error){
