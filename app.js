@@ -25,15 +25,33 @@ app.set('view engine','ejs');
 
 //7- variables de session
 const session = require('express-session');
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
+const MySQLStore = require('express-mysql-session')(session);
 
 
 // 8 - Invocamos a la conexion de la DB
 const connection = require('./database/db');
+
+const sessionStore = new MySQLStore({
+	clearExpired: true,
+	checkExpirationInterval: 900000,
+	expiration: 86400000,
+	createDatabaseTable: true,
+	schema: {
+		tableName: 'sessions',
+		columnNames: {
+			session_id: 'session_id',
+			expires: 'expires',
+			data: 'data'
+		}
+	}
+}, connection);
+
+app.use(session({
+	secret: process.env.SESSION_SECRET || 'secret',
+	resave: false,
+	saveUninitialized: false,
+	store: sessionStore
+}));
 
 //10 - establecemos las rutas
 	app.get('/acceso',(req, res)=>{
@@ -198,7 +216,7 @@ app.post('/auth', async (req, res)=> {
 //    let passwordHash = await bcrypt.hash(pass, 8);
 
 
-//	console.log('El user A es: ' + user);
+	console.log('Accesa 0: ' + user);
 //	console.log('El pass A es: ' + pass);
 
 	if (user && pass) {
@@ -323,7 +341,7 @@ const fin = Date.now();
 //12 - Método para controlar que está auth en todas las páginas
 app.get('/', (req, res)=> {
 
-	console.log('Folder Index ',globalfolder);
+	console.log('Folder Usr ',globalfolder);
 
 	if (req.session.loggedin) {
 		res.render('resultados',{

@@ -223,19 +223,19 @@ exports.quiniela_update = (req, res)=>{
     const Visitante = req.body.Visitante;
     const Id_p = req.session.Id_participante;
 
-    console.log({ML:ML, MV:MV});  
-    console.log(Id);
-    console.log('Participante: ',Id_p); 
+ //   console.log({ML:ML, MV:MV});  
+ //   console.log(Id);
 
-    conexion.query('UPDATE quiniela SET Estatus = 2 WHERE Id <> ? and Id_participante = ? and Estatus = 0' ,[Id , Id_p], (error, results)=>{
-        if(error){
-            console.log(error);
-        }else{           
-//            console.log(results);        
-        }
-    });
+ //   console.log('Participante: ',Id_p); 
 
-    console.log('Parte 1 Estatus=2 : ');
+ //    conexion.query('UPDATE quiniela SET Estatus = 2 WHERE Id <> ? and Id_participante = ? and Estatus = 0' ,[Id , Id_p], (error, results)=>{
+  //       if(error){
+  //           console.log(error);
+  //       }else{           
+//            console.log(results); 
+ //              console.log('Parte 1 Estatus=2 : ');       
+  //       }
+ //    });
 
     conexion.query('UPDATE quiniela SET ML=?, MV=?, Estatus=5 WHERE Id = ?',[ML, MV, Id], (error, results)=>{
         if(error){
@@ -243,7 +243,7 @@ exports.quiniela_update = (req, res)=>{
         }else{           
  //           console.log(results);
 
-            console.log('Parte 1 Estatus=0 : ');
+            console.log('Participante-P: ',Id_p, ' - ', Id);
 
             res.redirect('/quinielaC');         
         }
@@ -260,24 +260,24 @@ exports.campeon_update = (req, res)=>{
     console.log({campeon:campeon}); 
     console.log('Participante: ',Id_p); 
 
-    conexion.query('UPDATE campeon SET Equipo = ? WHERE Id >0 and Id_partido = 65 and Id_participante = ? ' ,[SubCampeon,Id_p], (error, results)=>{
+    conexion.query('UPDATE campeon SET Equipo = ? WHERE Id >0 and Id_partido = 105 and Id_participante = ? ' ,[SubCampeon,Id_p], (error, results)=>{
         if(error){
             console.log(error);
         }else{           
 //            console.log(results);        
+              console.log('Participante-SC: ',Id_p);
+
         }
     });
 
 //    console.log('Parte 1 Estatus=2 : ');
 
-    conexion.query('UPDATE campeon SET Equipo = ? WHERE Id >0 and Id_partido = 66 and Id_participante = ? ' ,[campeon,Id_p], (error, results)=>{
+    conexion.query('UPDATE campeon SET Equipo = ? WHERE Id >0 and Id_partido = 106 and Id_participante = ? ' ,[campeon,Id_p], (error, results)=>{
         if(error){
             console.log(error);
         }else{           
  //           console.log(results);
-
- //           console.log('Parte 1 Estatus=0 : ');
-
+              console.log('Participante-SC: ',Id_p);
             res.redirect('/quiniela');         
         }
     });
