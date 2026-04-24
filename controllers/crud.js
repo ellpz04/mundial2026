@@ -222,33 +222,35 @@ exports.quiniela_update = (req, res)=>{
     const MV = req.body.MV;
     const Visitante = req.body.Visitante;
     const Id_p = req.session.Id_participante;
+    const Id_partido = req.body.Id_partido;
 
  //   console.log({ML:ML, MV:MV});  
  //   console.log(Id);
-
- //   console.log('Participante: ',Id_p); 
-
- //    conexion.query('UPDATE quiniela SET Estatus = 2 WHERE Id <> ? and Id_participante = ? and Estatus = 0' ,[Id , Id_p], (error, results)=>{
-  //       if(error){
-  //           console.log(error);
-  //       }else{           
-//            console.log(results); 
- //              console.log('Parte 1 Estatus=2 : ');       
-  //       }
- //    });
+    console.log('Participante: ',Id_p, 'partido' , Id_partido); 
 
     conexion.query('UPDATE quiniela SET ML=?, MV=?, Estatus=5 WHERE Id = ?',[ML, MV, Id], (error, results)=>{
         if(error){
             console.log(error);
         }else{           
  //           console.log(results);
+ //           console.log('Participante-P: ',Id_p, ' - ', Id);
 
-            console.log('Participante-P: ',Id_p, ' - ', Id);
+           conexion.query('INSERT INTO Hquiniela SET Id_participante=?, Id_partido=?, ML=?, MV=?',[Id_p, Id_partido, ML, MV], (error, results)=>{
+            if(error){
+                console.log(error);
+            }else{           
+    //           console.log(results);
 
-            res.redirect('/quinielaC');         
+                res.redirect('/quinielaC');         
+            }
+    });     
         }
     });
+
 }
+
+
+
 
 //ACTUALIZAR un REGISTRO
 exports.campeon_update = (req, res)=>{
