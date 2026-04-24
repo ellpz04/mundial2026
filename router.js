@@ -136,7 +136,11 @@ router.get('/puntos_data', (req, res)=>{
 
 //ruta para enviar los datos en formato json Calendario
 router.get('/calendario_data', (req, res)=>{     
-    conexion.query('SELECT P.Id,P.Local,L.clave ClaveL,V.Clave ClaveV,P.Visitante,date_format(P.Fecha, "%d-%m-%Y") as Fecha,P.Horario,P.Estadio,P.Estatus FROM partidos as P, paises as L, paises as V WHERE P.Visitante = V.nombre and P.Local = L.nombre order by P.Estatus, P.Id desc',(error, results)=>{
+    conexion.query('SELECT P.Id,P.Local,L.clave ClaveL,V.Clave ClaveV,P.Visitante,date_format(P.Fecha, "%d-%m-%Y") as Fecha,P.Horario,P.Estadio,P.Estatus FROM partidos as P, paises as L, paises as V \
+        WHERE P.Visitante = V.nombre and P.Local = L.nombre \
+        union \
+        SELECT P.Id,P.Local," "," ",P.Visitante,date_format(P.Fecha, "%d-%m-%Y") as Fecha,P.Horario,P.Estadio,P.Estatus FROM partidos as P \
+        WHERE P.Id > 72 order by 9, 1',(error, results)=>{
         if(error){
             throw error;
         } else {                                                   
