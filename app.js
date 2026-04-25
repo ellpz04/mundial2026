@@ -344,12 +344,12 @@ app.get('/', (req, res)=> {
 	console.log('Folder Usr ',globalfolder);
 
 	if (req.session.loggedin) {
-		res.render('resultados',{
+		res.render('calendario',{
 			login: true,
 			name: req.session.name			
 		});		
 	} else {
-		res.render('resultados',{
+		res.render('calendario',{
 			login:false,
 			name:'Debe iniciar sesión',			
 		});				 
