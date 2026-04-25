@@ -17,8 +17,7 @@
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.8",
     "express-session": "^1.17.1",
-    "mysql": "^2.18.1",
-    "twilio": "^3.82.2"
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.10",
