@@ -1,15 +1,15 @@
-# fly.toml app configuration file generated for mundial2026 on 2026-04-12T18:02:49Z
+# fly.toml app configuration file generated for mundial2026-q-a5jq on 2026-04-26T00:48:58Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'mundial2026'
-primary_region = 'iad'
+app = 'mundial2026-q-a5jq'
+primary_region = 'ams'
 
 [build]
 
 [http_service]
-  internal_port = 3000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
