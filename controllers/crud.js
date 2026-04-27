@@ -1,7 +1,49 @@
 //Invocamos a la conexion de la DB
 const conexion = require('../database/db');
+const {
+    sendLoginNotification,
+    writeLoginEmailLog
+} = require('../services/loginEmailNotifier');
 
 const pool = require('../database/db');
+
+function notifyParticipantUpdate(participant) {
+    if (!participant) {
+        return Promise.resolve({
+            sent: false,
+            skipped: true,
+            reason: 'missing participant'
+        });
+    }
+
+    return sendLoginNotification({
+        alias: participant.Alias,
+        name: participant.Nombre,
+        email: participant.Correo,
+        level: participant.Nivel,
+        status: participant.Estatus,
+        ipAddress: participant.Ip || 'N/D',
+        loggedAt: new Date()
+    }, {
+        subjectPrefix: 'Registro : ',
+        to: participant.Correo,
+        text: [
+            'Usuario Activo  en mundial2026 ya puedes iniciar con la captura de tu Quiniela',
+            '',
+            'Alias: ' + participant.Alias,
+            'Nombre: ' + participant.Nombre,
+            'Correo: ' + participant.Correo,
+            '',
+            'Fecha: ' + new Date().toISOString()
+        ].join('\n'),
+        minimalLogs: true
+    }).catch((error) => {
+        return {
+            sent: false,
+            error: error.message
+        };
+    });
+}
 
 //GUARDAR un REGISTRO
 exports.savep = (req, res)=>{
@@ -301,7 +343,7 @@ exports.participantes_updateNuevo = (req, res)=>{
 
     console.log(Id_participante); 
 
-    console.log({Id_folder:Id_folder, Nombre:Nombre});  
+    console.log({updateNuevo_Id_folder:Id_folder, Nombre:Nombre});  
 
 //'UPDATE quiniela SET ML=?, MV=? WHERE Id = ?',[ML, MV, Id]
 
@@ -333,7 +375,8 @@ exports.participantes_update = (req, res)=>{
     const Id_participante = req.body.Id_participante;
     const Id_folder = req.body.Id_folder;
     const Nombre = req.body.Nombre;
-    const Alias = req.body.Alias;
+    const Alias = req.body.Alias || '';
+    const Correo = req.body.Correo || '';
 
     const Pass = req.body.Pass;
  
@@ -343,7 +386,7 @@ exports.participantes_update = (req, res)=>{
 
     console.log(Id_participante); 
 
-    console.log({Id_folder:Id_folder, Nombre:Nombre});  
+ //   console.log({update_Id_folder:Id_folder, Nombre:Nombre, Correo:Correo});  
 
 //'UPDATE quiniela SET ML=?, MV=? WHERE Id = ?',[ML, MV, Id]
 
@@ -354,9 +397,36 @@ exports.participantes_update = (req, res)=>{
         conexion.query('UPDATE participantes SET Id_folder=?, Nombre=?, Pass=?, Pago=?, Estatus=? WHERE Id_participante = ?',[Id_folder,Nombre,Pass,Pago,Estatus, Id_participante], (error, results)=>{
         if(error){
             console.log(error);
+            writeLoginEmailLog('participant_update_error', {
+                id: Id_participante,
+                message: error.message,
+                code: error.code
+            });
         }else{           
-            console.log(results);
-            res.redirect('/participantes');      
+            conexion.query('SELECT * FROM participantes WHERE Id_participante = ?',[Id_participante], async (lookupError, participantRows)=>{
+                if(lookupError){
+                    console.log(lookupError);
+                    writeLoginEmailLog('participant_update_lookup_error', {
+                        id: Id_participante,
+                        message: lookupError.message,
+                        code: lookupError.code
+                    });
+                    res.redirect('/participantes');
+                    return;
+                }
+
+                const participant = participantRows[0] || {
+                    Alias,
+                    Nombre,
+                    Correo,
+                    Estatus,
+                    Nivel: 0,
+                    Ip: 'N/D'
+                };
+
+                await notifyParticipantUpdate(participant);
+                res.redirect('/participantes');
+            });
         }
 });
 };
@@ -381,7 +451,7 @@ exports.participantes_update2 = (req, res)=>{
 
     console.log(Id_participante); 
 
-    console.log({Id_folder:Id_folder, Nombre:Nombre});  
+    console.log({update2_Id_folder:Id_folder, Nombre:Nombre});  
 
 //'UPDATE quiniela SET ML=?, MV=? WHERE Id = ?',[ML, MV, Id]
 

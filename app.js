@@ -30,6 +30,11 @@ const MySQLStore = require('express-mysql-session')(session);
 
 // 8 - Invocamos a la conexion de la DB
 const connection = require('./database/db');
+const {
+	sendLoginNotification,
+	getEmailConfigurationSummary,
+	LOGIN_EMAIL_LOG_PATH
+} = require('./services/loginEmailNotifier');
 
 const sessionStore = new MySQLStore({
 	clearExpired: true,
@@ -53,14 +58,91 @@ app.use(session({
 	store: sessionStore
 }));
 
+//console.log('[login-email] Configuracion cargada:', getEmailConfigurationSummary());
+//console.log('[login-email] Archivo de log:', LOGIN_EMAIL_LOG_PATH);
+
+function getClientIp(req) {
+	const forwardedFor = req.headers['x-forwarded-for'];
+
+	if (typeof forwardedFor === 'string' && forwardedFor.length > 0) {
+		return forwardedFor.split(',')[0].trim();
+	}
+
+	if (req.socket && req.socket.remoteAddress) {
+		return req.socket.remoteAddress;
+	}
+
+	return req.ip || 'desconocida';
+}
+
+function notifySuccessfulLogin(req, participant) {
+	if (!participant) {
+		return Promise.resolve({
+			sent: false,
+			skipped: true,
+			reason: 'missing participant'
+		});
+	}
+
+//	console.log('[login-email] Disparando notificacion para alias:', participant.Alias);
+
+	return sendLoginNotification({
+		alias: participant.Alias,
+		name: participant.Nombre,
+		email: participant.Correo,
+		level: participant.Nivel,
+		status: participant.Estatus,
+		ipAddress: getClientIp(req),
+		loggedAt: new Date()
+	}).then((result) => {
+
+//		console.log('[login-email] Resultado final:', result);
+
+		return result;
+	}).catch((error) => {
+		console.error('[login-email] No se pudo enviar el correo de login:', error);
+		return {
+			sent: false,
+			error: error.message
+		};
+	});
+}
+
 //10 - establecemos las rutas
 	app.get('/acceso',(req, res)=>{
 		res.render('acceso');
 	})
 
-	app.get('/register',(req, res)=>{
+app.get('/register',(req, res)=>{
 		res.render('register');
 	})
+
+app.get('/test-login-email', async (req, res) => {
+	if (!req.session.loggedin) {
+		return res.status(401).json({
+			ok: false,
+			message: 'Debe iniciar sesion para probar el correo',
+			logFile: LOGIN_EMAIL_LOG_PATH
+		});
+	}
+
+	const result = await notifySuccessfulLogin(req, {
+		Alias: req.session.Alias || 'test-login-email',
+		Nombre: req.session.Alias || 'Usuario autenticado',
+		Correo: process.env.SMTP_USER || 'sin-correo',
+		Nivel: req.session.Nivel,
+		Estatus: req.session.Estatus,
+		Id_participante: req.session.Id_participante,
+		Id_folder: req.session.Folder
+	});
+
+	return res.json({
+		ok: true,
+		result,
+		config: getEmailConfigurationSummary(),
+		logFile: LOGIN_EMAIL_LOG_PATH
+	});
+});
 
 //puntos
 app.get('/puntos', (req, res)=> {
@@ -221,6 +303,19 @@ app.post('/auth', async (req, res)=> {
 
 	if (user && pass) {
 		connection.query('SELECT * FROM participantes WHERE alias = ?', [user], async (error, results, fields)=> {
+			if (error) {
+				console.log(error);
+				res.render('acceso', {
+                        alert: true,
+                        alertTitle: "Error",
+                        alertMessage: "NO SE PUDO VALIDAR EL ACCESO",
+                        alertIcon:'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: 'acceso'    
+                    });
+				return;
+			}
 
 			if( results.length == 0  ) {  
 
@@ -235,8 +330,74 @@ app.post('/auth', async (req, res)=> {
                         timer: false,
                         ruta: 'acceso'    
                     });
+				return;
 							
-			} else {         
+			} else {
+				const participant = results[0];
+				const fin = Date.now();
+
+				console.log(participant.Alias, 'Tiempo:', fin);
+
+				if (pass != participant.Pass) {
+					res.render('acceso', {
+						alert: true,
+						alertTitle: "Error",
+						alertMessage: "Â¡CLAVE INCORRECTA!",
+						alertIcon:'error',
+						showConfirmButton: true,
+						timer: false,
+						ruta: 'acceso'
+					});
+					return;
+				}
+
+				const estatus = Number(participant.Estatus);
+				const isActive = estatus === 1;
+
+				if (isActive) {
+					req.session.loggedin = true;
+					req.session.Id_participante = participant.Id_participante;
+					req.session.Alias = participant.Alias;
+					req.session.Nivel = participant.Nivel;
+					req.session.Estatus = participant.Estatus;
+					req.session.Folder = participant.Id_folder;
+				} else {
+					console.log('Espere aviso de activaciÃ³n');
+					req.session.loggedin = false;
+					req.session.Id_participante = participant.Id_participante;
+					req.session.Alias = participant.Alias;
+					req.session.Nivel = participant.Nivel;
+					req.session.Estatus = participant.Estatus;
+					console.log('El app_aut Id es: ' + req.session.Id_participante);
+					console.log('El usuario es: ' + req.session.Alias);
+				}
+
+				await notifySuccessfulLogin(req, participant);
+
+				if (isActive) {
+					res.render('acceso', {
+						alert: true,
+						alertTitle: "ConexiÃ³n exitosa",
+						alertMessage: "Â¡LOGIN CORRECTO!",
+						alertIcon:'success',
+						showConfirmButton: false,
+						timer: 1500,
+						ruta: 'quinielaC'
+					});
+					return;
+				}
+
+				res.render('acceso', {
+					alert: true,
+					alertTitle: "Espere aviso de activaciÃ³n 1",
+					alertMessage: "Â¡LOGIN CORRECTO!",
+					alertIcon:'info',
+					showConfirmButton: true,
+					timer: false,
+					ruta: ''
+				});
+				return;
+/*
 				//creamos una var de session y le asignamos true si INICIO SESSION     
 //				console.log('Usuario registrado');
 
@@ -298,6 +459,7 @@ const fin = Date.now();
 									timer: 1500,
 									ruta: 'quinielaC'
 								});  
+								notifySuccessfulLogin(req, element);
 		
 							} else {
 		
@@ -323,10 +485,12 @@ const fin = Date.now();
 									timer: false,
 									ruta: ''
 								});  
+								notifySuccessfulLogin(req, element);
 							}                                   
 						  };
 				});				
 					
+*/
 			}			
 			res.end();
 		});

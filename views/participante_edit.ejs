@@ -60,6 +60,8 @@
                 <div class="card-body">
                     <form action="/participantes_update" method="POST">
                          <input id="Id_participante" name="Id_participante" value="<%= user.Id_participante %>" hidden>
+                         <input id="Alias" name="Alias" value="<%= user.Alias %>" hidden>
+                         <input id="Correo" name="Correo" value="<%= user.Correo %>" hidden>
                         <div class="mb-3">
                           <label for="Id_folder" class="form-label">FOLDER</label>
                           <input type="text" class="form-control" id="Id_folder" name="Id_folder" tabindex="1" value="<%= user.Id_folder  %>">                                            
