@@ -1,0 +1,94 @@
+{"at":"2026-04-26T22:57:45.407Z","event":"module_loaded","details":{"pid":22980,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-26T22:57:45.410Z","event":"app_started","details":{"pid":22980,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-26T22:57:53.170Z","event":"http_request","details":{"method":"GET","url":"/","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:57:53.629Z","event":"http_request","details":{"method":"GET","url":"/calendario_data?_=1777244273487","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:57:53.912Z","event":"http_request","details":{"method":"GET","url":"/resources/Ipais/","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:57:55.971Z","event":"http_request","details":{"method":"GET","url":"/paises","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:57:56.070Z","event":"http_request","details":{"method":"GET","url":"/paises_data?_=1777244276033","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:57:59.328Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:57:59.553Z","event":"http_request","details":{"method":"GET","url":"/favicon.ico","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:59:18.594Z","event":"http_request","details":{"method":"POST","url":"/registra_save1","ip":"127.0.0.1"}}
+{"at":"2026-04-26T22:59:21.276Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:32.938Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:33.267Z","event":"http_request","details":{"method":"GET","url":"/favicon.ico","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:39.885Z","event":"http_request","details":{"method":"GET","url":"/quinielaC","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:42.103Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:47.623Z","event":"http_request","details":{"method":"POST","url":"/auth","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:47.627Z","event":"auth_route_hit","details":{"user":"prueba","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:47.671Z","event":"auth_user_found","details":{"user":"prueba","alias":"prueba","estatus":1}}
+{"at":"2026-04-26T23:07:47.678Z","event":"attempt","details":{"alias":"prueba","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-26T23:07:48.239Z","event":"verified","details":{"alias":"prueba","to":"viggente911@gmail.com"}}
+{"at":"2026-04-26T23:07:49.422Z","event":"sent","details":{"alias":"prueba","messageId":"<a3da86ce-55c9-ce04-b269-f477000ad11e@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777244869 586e51a60fabf-42c16b64a83sm20091312fac.18 - gsmtp"}}
+{"at":"2026-04-26T23:07:49.427Z","event":"auth_notification_finished","details":{"user":"prueba","alias":"prueba","isActive":true}}
+{"at":"2026-04-26T23:07:51.191Z","event":"http_request","details":{"method":"GET","url":"/quinielaC","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:07:51.662Z","event":"http_request","details":{"method":"GET","url":"/quiniela_data?_=1777244871425","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:17:24.564Z","event":"module_loaded","details":{"pid":4412,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-26T23:17:24.571Z","event":"app_started","details":{"pid":4412,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-26T23:17:32.950Z","event":"module_loaded","details":{"pid":3416,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-26T23:17:32.961Z","event":"app_started","details":{"pid":3416,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-26T23:18:07.284Z","event":"module_loaded","details":{"pid":32820,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-26T23:18:07.289Z","event":"app_started","details":{"pid":32820,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-26T23:18:11.035Z","event":"module_loaded","details":{"pid":35424,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-26T23:18:11.050Z","event":"app_started","details":{"pid":35424,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-26T23:18:31.712Z","event":"module_loaded","details":{"pid":5340,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-26T23:18:31.718Z","event":"app_started","details":{"pid":5340,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-26T23:47:41.328Z","event":"http_request","details":{"method":"GET","url":"/","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:47:41.935Z","event":"http_request","details":{"method":"GET","url":"/calendario_data?_=1777247261642","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:47:42.779Z","event":"http_request","details":{"method":"GET","url":"/resources/Ipais/","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:47:52.493Z","event":"http_request","details":{"method":"GET","url":"/estadios","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:47:52.797Z","event":"http_request","details":{"method":"GET","url":"/estadios_data?_=1777247272662","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:47:53.538Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:48:33.423Z","event":"http_request","details":{"method":"POST","url":"/registra_save1","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:48:33.472Z","event":"register_route_hit","details":{"alias":"vic","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:48:33.583Z","event":"register_inserted","details":{"alias":"vic","correo":"1@mail.com"}}
+{"at":"2026-04-26T23:48:33.593Z","event":"attempt","details":{"alias":"vic","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-26T23:48:34.608Z","event":"verified","details":{"alias":"vic","to":"viggente911@gmail.com"}}
+{"at":"2026-04-26T23:48:36.654Z","event":"sent","details":{"alias":"vic","messageId":"<b7a3068c-7180-172c-6792-52555ed1f9b3@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777247316 af79cd13be357-8e7d8edc2b9sm2631711085a.23 - gsmtp"}}
+{"at":"2026-04-26T23:48:36.658Z","event":"register_notification_finished","details":{"alias":"vic"}}
+{"at":"2026-04-26T23:48:38.532Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:49:33.726Z","event":"http_request","details":{"method":"GET","url":"/partidos","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:49:37.828Z","event":"http_request","details":{"method":"GET","url":"/acceso","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:49:51.084Z","event":"http_request","details":{"method":"POST","url":"/auth","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:49:51.087Z","event":"auth_route_hit","details":{"user":"admin","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:49:51.124Z","event":"auth_user_found","details":{"user":"admin","alias":"admin","estatus":1}}
+{"at":"2026-04-26T23:49:51.134Z","event":"attempt","details":{"alias":"admin","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-26T23:49:51.663Z","event":"verified","details":{"alias":"admin","to":"viggente911@gmail.com"}}
+{"at":"2026-04-26T23:49:52.635Z","event":"sent","details":{"alias":"admin","messageId":"<054958ce-0243-2da2-1571-a509e23a9437@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777247392 5614622812f47-479fb5d5d9csm11265614b6e.13 - gsmtp"}}
+{"at":"2026-04-26T23:49:52.637Z","event":"auth_notification_finished","details":{"user":"admin","alias":"admin","isActive":true}}
+{"at":"2026-04-26T23:49:54.523Z","event":"http_request","details":{"method":"GET","url":"/quinielaC","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:49:54.939Z","event":"http_request","details":{"method":"GET","url":"/quiniela_data?_=1777247394730","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:50:07.987Z","event":"http_request","details":{"method":"GET","url":"/partidos","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:50:08.324Z","event":"http_request","details":{"method":"GET","url":"/datap?_=1777247408188","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:50:12.890Z","event":"http_request","details":{"method":"GET","url":"/participantes","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:50:13.220Z","event":"http_request","details":{"method":"GET","url":"/participantes_dat?_=1777247413066","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:50:24.238Z","event":"http_request","details":{"method":"GET","url":"/ /0","ip":"127.0.0.1"}}
+{"at":"2026-04-26T23:50:24.414Z","event":"http_request","details":{"method":"GET","url":"/participante_editN/styles.css","ip":"127.0.0.1"}}
+{"at":"2026-04-27T00:11:49.520Z","event":"module_loaded","details":{"pid":32028,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T00:11:49.531Z","event":"app_started","details":{"pid":32028,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-27T00:15:28.118Z","event":"module_loaded","details":{"pid":2552,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T00:15:28.131Z","event":"app_started","details":{"pid":2552,"logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log","config":{"enabled":true,"host":"smtp.gmail.com","port":465,"secure":true,"user":"together2family@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"to":"viggente911@gmail.com","timeoutMs":20000}}}
+{"at":"2026-04-27T00:19:07.320Z","event":"module_loaded","details":{"pid":24128,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T00:19:41.086Z","event":"attempt","details":{"alias":"admin","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-27T00:19:41.620Z","event":"verified","details":{"alias":"admin","to":"viggente911@gmail.com"}}
+{"at":"2026-04-27T00:19:42.568Z","event":"sent","details":{"alias":"admin","messageId":"<c7552e6a-d1a2-a53b-af44-f3c789bffc29@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777249182 46e09a7af769-7de8a931015sm403976a34.9 - gsmtp"}}
+{"at":"2026-04-27T00:31:06.469Z","event":"module_loaded","details":{"pid":4812,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T00:31:47.541Z","event":"attempt","details":{"alias":"admin","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-27T00:31:47.951Z","event":"verified","details":{"alias":"admin","to":"viggente911@gmail.com"}}
+{"at":"2026-04-27T00:31:48.988Z","event":"sent","details":{"alias":"admin","messageId":"<64c7da9e-82f8-5c4c-b3c9-d6616c3b722b@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777249908 006d021491bc7-69464ea14ddsm18685399eaf.6 - gsmtp"}}
+{"at":"2026-04-27T00:41:53.865Z","event":"module_loaded","details":{"pid":15484,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T00:42:29.741Z","event":"attempt","details":{"alias":"admin","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-27T00:42:30.453Z","event":"verified","details":{"alias":"admin","to":"viggente911@gmail.com"}}
+{"at":"2026-04-27T00:42:31.433Z","event":"sent","details":{"alias":"admin","messageId":"<5ad310f7-9ff7-edae-4e81-a446ad57e38e@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777250551 46e09a7af769-7dcc953e39asm18867456a34.15 - gsmtp"}}
+{"at":"2026-04-27T00:55:56.530Z","event":"module_loaded","details":{"pid":31976,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T01:05:48.400Z","event":"participant_update_route_hit","details":{"id":"562","alias":"","correo":""}}
+{"at":"2026-04-27T01:05:48.533Z","event":"participant_update_notification_attempt","details":{"alias":"mando","correo":"elofish@gmail.com"}}
+{"at":"2026-04-27T01:05:48.542Z","event":"attempt","details":{"alias":"mando","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-27T01:05:49.159Z","event":"verified","details":{"alias":"mando","to":"viggente911@gmail.com"}}
+{"at":"2026-04-27T01:05:50.539Z","event":"sent","details":{"alias":"mando","messageId":"<a48fc3db-674c-b9e3-6bf2-edd2d6f3f6d6@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777251950 586e51a60fabf-42fae7ee3a5sm17540306fac.7 - gsmtp"}}
+{"at":"2026-04-27T01:05:50.541Z","event":"participant_update_notification_finished","details":{"alias":"mando","result":{"sent":true,"messageId":"<a48fc3db-674c-b9e3-6bf2-edd2d6f3f6d6@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777251950 586e51a60fabf-42fae7ee3a5sm17540306fac.7 - gsmtp"}}}
+{"at":"2026-04-27T01:18:01.981Z","event":"module_loaded","details":{"pid":33448,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T01:26:08.990Z","event":"module_loaded","details":{"pid":33092,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}
+{"at":"2026-04-27T01:30:01.996Z","event":"attempt","details":{"alias":"admin","to":"viggente911@gmail.com","from":{"name":"Reunidos por un Balón","address":"together2family@gmail.com"},"host":"smtp.gmail.com","port":465,"secure":true}}
+{"at":"2026-04-27T01:30:02.573Z","event":"verified","details":{"alias":"admin","to":"viggente911@gmail.com"}}
+{"at":"2026-04-27T01:30:03.676Z","event":"sent","details":{"alias":"admin","messageId":"<1f0f522a-b9c4-5d51-b9cc-001ae44801c6@gmail.com>","accepted":["viggente911@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1777253403 46e09a7af769-7dcd5408b5asm15966753a34.11 - gsmtp"}}
+{"at":"2026-04-27T01:46:40.585Z","event":"module_loaded","details":{"pid":17976,"cwd":"C:\\Ell04\\Code\\2026\\mundial2026","logPath":"C:\\Ell04\\Code\\2026\\mundial2026\\logs\\login-email.log"}}

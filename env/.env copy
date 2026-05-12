@@ -1,13 +1,30 @@
-//Definimos las variables de entorno para la conexion a la BD heroku
+//Definimos las variables de entorno para la conexion a la BD local
 
 DB_HOST = localhost
 DB_USER = usr01
 DB_PASS = V46ALGyDsbi_Qzmc
 DB_DATABASE = mundial2026
-SMTP_HOST =
-SMTP_PORT = 587
-SMTP_SECURE = false
-SMTP_USER =
-SMTP_PASS =
-SMTP_FROM =
-LOGIN_NOTIFICATION_TO = viggente911@gmail.com
+
+//Definimos las variables de entorno para la conexion a la BD lagarto
+
+DB_HOST = 69.6.201.153
+DB_USER = eduar545_usr01
+DB_PASS = fBBognsCGkyi
+DB_DATABASE = eduar545_unidosporunbalon
+
+SMTP_HOST = smtp.gmail.com
+SMTP_PORT = 465
+SMTP_SECURE = true
+SMTP_USER = together2family@gmail.com
+SMTP_PASS = qoqn oxcd unvq blrf
+SMTP_FROM = "Reunidos por un Balón" together2family@gmail.com
+LOGIN_NOTIFICATION_TO = reunidosporunbalon@gmail.com
+
+
+SMTP_HOST = smtp.gmail.com
+SMTP_PORT = 465
+SMTP_SECURE = true
+SMTP_USER = reunidosporunbalon@gmail.com
+SMTP_PASS = haiy mkck xvep vlkd
+SMTP_FROM = "Reunidos por un Balón "
+LOGIN_NOTIFICATION_TO = reunidosporunbalon@gmail.com

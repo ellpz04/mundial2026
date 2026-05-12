@@ -3,11 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 const LOGIN_NOTIFICATION_TO =
-  process.env.LOGIN_NOTIFICATION_TO || 'viggente911@gmail.com';
+  process.env.LOGIN_NOTIFICATION_TO || 'reunidosporunbalon@gmail.com';
 const SMTP_TIMEOUT_MS = Number(process.env.SMTP_TIMEOUT_MS || 20000);
 const LOGIN_EMAIL_LOG_PATH = path.join(__dirname, '..', 'logs', 'login-email.log');
 
 function writeLoginEmailLog(event, details) {
+  // Ayuda de diagnostico archivada.
+  // Reactivar este bloque solo si vuelve a ser necesario registrar eventos
+  // del flujo de correo en logs/login-email.log.
+  /*
   try {
     fs.mkdirSync(path.dirname(LOGIN_EMAIL_LOG_PATH), { recursive: true });
     fs.appendFileSync(
@@ -22,6 +26,7 @@ function writeLoginEmailLog(event, details) {
   } catch (error) {
     console.error('[login-email] No se pudo escribir el log local:', error.message);
   }
+  */
 }
 
 function toBoolean(value, defaultValue) {
@@ -161,10 +166,13 @@ async function sendLoginNotification(loginData, options = {}) {
 
   if (!transporter) {
     console.warn('[login-email] SMTP_HOST, SMTP_USER o SMTP_PASS no estan configurados. Se omitio el correo de login.');
+    // Ayuda de diagnostico archivada para registrar faltantes de configuracion.
+    /*
     writeLoginEmailLog('skipped_missing_config', {
       alias: formatValue(loginData.alias),
       config: configSummary
     });
+    */
     return { sent: false, skipped: true };
   }
 
@@ -182,16 +190,19 @@ async function sendLoginNotification(loginData, options = {}) {
     'Fecha: ' + formatValue(loginData.loggedAt)
   ].join('\n');
 
-//  console.log('[login-email] Preparando envio:', {
-//    alias: formatValue(loginData.alias),
-//    to: configSummary.to,
-//    from: configSummary.from,
-//    host: configSummary.host,
-//    port: configSummary.port,
-//    secure: configSummary.secure
-//  });
+  //Consola MAIL
+  //console.log('[login-email] Preparando envio:', {
+  //  alias: formatValue(loginData.alias),
+  //  to: configSummary.to,
+  //  from: configSummary.from,
+  //  host: configSummary.host,
+  //  port: configSummary.port,
+  //  secure: configSummary.secure
+  //});
 
   if (!minimalLogs) {
+    // Ayuda de diagnostico archivada para registrar el intento de envio.
+    /*
     writeLoginEmailLog('attempt', {
       alias: formatValue(loginData.alias),
       to: recipientTo,
@@ -200,15 +211,19 @@ async function sendLoginNotification(loginData, options = {}) {
       port: configSummary.port,
       secure: configSummary.secure
     });
+    */
   }
 
   try {
     await transporter.verify();
     if (!minimalLogs) {
+      // Ayuda de diagnostico archivada para registrar la verificacion SMTP.
+      /*
       writeLoginEmailLog('verified', {
         alias: formatValue(loginData.alias),
         to: recipientTo
       });
+      */
     }
 
     const info = await transporter.sendMail({
@@ -218,6 +233,8 @@ async function sendLoginNotification(loginData, options = {}) {
       text
     });
 
+
+//Consola MAIL
 //    console.log('[login-email] Correo enviado:', {
 //      messageId: info.messageId,
 //      accepted: info.accepted,
@@ -226,6 +243,8 @@ async function sendLoginNotification(loginData, options = {}) {
 //    });
 
     if (!minimalLogs) {
+      // Ayuda de diagnostico archivada para registrar el envio exitoso.
+      /*
       writeLoginEmailLog('sent', {
         alias: formatValue(loginData.alias),
         messageId: info.messageId,
@@ -233,6 +252,7 @@ async function sendLoginNotification(loginData, options = {}) {
         rejected: info.rejected,
         response: info.response
       });
+      */
     }
 
     return {
@@ -243,6 +263,8 @@ async function sendLoginNotification(loginData, options = {}) {
       response: info.response
     };
   } catch (error) {
+    // Ayuda de diagnostico archivada para registrar errores de envio.
+    /*
     writeLoginEmailLog('failed', {
       alias: formatValue(loginData.alias),
       message: error.message,
@@ -250,6 +272,7 @@ async function sendLoginNotification(loginData, options = {}) {
       command: error.command,
       response: error.response
     });
+    */
     throw error;
   }
 }
@@ -261,8 +284,11 @@ module.exports = {
   sendLoginNotification
 };
 
+// Ayuda de diagnostico archivada para registrar la carga del modulo.
+/*
 writeLoginEmailLog('module_loaded', {
   pid: process.pid,
   cwd: process.cwd(),
   logPath: LOGIN_EMAIL_LOG_PATH
 });
+*/

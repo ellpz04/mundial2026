@@ -31,9 +31,7 @@ const MySQLStore = require('express-mysql-session')(session);
 // 8 - Invocamos a la conexion de la DB
 const connection = require('./database/db');
 const {
-	sendLoginNotification,
-	getEmailConfigurationSummary,
-	LOGIN_EMAIL_LOG_PATH
+	sendLoginNotification
 } = require('./services/loginEmailNotifier');
 
 const sessionStore = new MySQLStore({
@@ -58,6 +56,8 @@ app.use(session({
 	store: sessionStore
 }));
 
+// Ayuda de diagnostico temporal para revisar la configuracion y el archivo de log.
+// Reactivar solo cuando se necesite depurar el flujo de correo.
 //console.log('[login-email] Configuracion cargada:', getEmailConfigurationSummary());
 //console.log('[login-email] Archivo de log:', LOGIN_EMAIL_LOG_PATH);
 
@@ -108,6 +108,35 @@ function notifySuccessfulLogin(req, participant) {
 	});
 }
 
+function notifyRegistration(req, participant) {
+	if (!participant) {
+		return Promise.resolve({
+			sent: false,
+			skipped: true,
+			reason: 'missing participant'
+		});
+	}
+
+	return sendLoginNotification({
+		alias: participant.Alias,
+		name: participant.Nombre,
+		email: participant.Correo,
+		level: participant.Nivel || 0,
+		status: participant.Estatus || 0,
+		ipAddress: getClientIp(req),
+		loggedAt: new Date()
+	}, {
+		subjectPrefix: 'Registro : ',
+		bodyIntro: 'Se detecto un registro en mundial2026.'
+	}).catch((error) => {
+		console.error('[login-email] No se pudo enviar el correo de registro:', error);
+		return {
+			sent: false,
+			error: error.message
+		};
+	});
+}
+
 //10 - establecemos las rutas
 	app.get('/acceso',(req, res)=>{
 		res.render('acceso');
@@ -117,6 +146,9 @@ app.get('/register',(req, res)=>{
 		res.render('register');
 	})
 
+// Ruta de apoyo para pruebas manuales del correo desde la misma sesion web.
+// Se deja comentada para futuras ocasiones de diagnostico.
+/*
 app.get('/test-login-email', async (req, res) => {
 	if (!req.session.loggedin) {
 		return res.status(401).json({
@@ -143,6 +175,7 @@ app.get('/test-login-email', async (req, res) => {
 		logFile: LOGIN_EMAIL_LOG_PATH
 	});
 });
+*/
 
 //puntos
 app.get('/puntos', (req, res)=> {
@@ -238,7 +271,7 @@ app.post('/registra_save1', async (req, res)=> {
 				console.log({Correo:Correo, Nombre:Nombre,Contacto:Contacto});  
 				
 
-				connection.query('INSERT INTO participantes SET Nombre=?, Alias=?, Contacto=?, Correo=?, Pass= ?',[Nombre, Alias, Contacto, Correo, pass], (error, results)=>{
+				connection.query('INSERT INTO participantes SET Nombre=?, Alias=?, Contacto=?, Correo=?, Pass= ?',[Nombre, Alias, Contacto, Correo, pass], async (error, results)=>{
 	
 					if(error){
 						console.log(error);
@@ -247,7 +280,17 @@ app.post('/registra_save1', async (req, res)=> {
 
 					    req.session.loggedin = false;
 
+
 						console.log('Espere aviso de activación');
+
+						await notifyRegistration(req, {
+							Alias,
+							Nombre,
+							Correo,
+							Contacto,
+							Nivel: 0,
+							Estatus: 0
+						});
 
 	console.log('Usuario registrado');
 	res.render('acceso', {
@@ -362,7 +405,7 @@ app.post('/auth', async (req, res)=> {
 					req.session.Estatus = participant.Estatus;
 					req.session.Folder = participant.Id_folder;
 				} else {
-					console.log('Espere aviso de activaciÃ³n');
+						console.log('Espere aviso de activaciÃ³n');
 					req.session.loggedin = false;
 					req.session.Id_participante = participant.Id_participante;
 					req.session.Alias = participant.Alias;

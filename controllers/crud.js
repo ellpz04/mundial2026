@@ -1,8 +1,7 @@
 //Invocamos a la conexion de la DB
 const conexion = require('../database/db');
 const {
-    sendLoginNotification,
-    writeLoginEmailLog
+    sendLoginNotification
 } = require('../services/loginEmailNotifier');
 
 const pool = require('../database/db');
@@ -397,20 +396,10 @@ exports.participantes_update = (req, res)=>{
         conexion.query('UPDATE participantes SET Id_folder=?, Nombre=?, Pass=?, Pago=?, Estatus=? WHERE Id_participante = ?',[Id_folder,Nombre,Pass,Pago,Estatus, Id_participante], (error, results)=>{
         if(error){
             console.log(error);
-            writeLoginEmailLog('participant_update_error', {
-                id: Id_participante,
-                message: error.message,
-                code: error.code
-            });
         }else{           
             conexion.query('SELECT * FROM participantes WHERE Id_participante = ?',[Id_participante], async (lookupError, participantRows)=>{
                 if(lookupError){
                     console.log(lookupError);
-                    writeLoginEmailLog('participant_update_lookup_error', {
-                        id: Id_participante,
-                        message: lookupError.message,
-                        code: lookupError.code
-                    });
                     res.redirect('/participantes');
                     return;
                 }
